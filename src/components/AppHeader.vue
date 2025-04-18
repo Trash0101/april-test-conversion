@@ -62,16 +62,16 @@ const saveBaseCurrency = (event: Event) => {
   const currency = target.value;
   localStorage.setItem('baseCurrency', currency)
   baseCurrency.value = currency
-  onBaseCurrencyChange()
+  setCurrencyRoute(currency)
 }
 
-const onBaseCurrencyChange = () => {
+const setCurrencyRoute = (currency: string) => {
   if(route.name === 'convert') {
     router.replace({
       path: '/convert',
       query: {
-        from: baseCurrency.value,
-        to: baseCurrency.value,
+        from: currency,
+        to: currency,
       }
     })
   }
