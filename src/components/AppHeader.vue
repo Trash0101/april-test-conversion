@@ -57,17 +57,17 @@ const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-const saveBaseCurrency = (event: Event) => {
+const saveBaseCurrency = async (event: Event) => {
   const target = event.target as HTMLSelectElement;
   const currency = target.value;
   localStorage.setItem('baseCurrency', currency)
+  await setCurrencyRoute(currency)
   baseCurrency.value = currency
-  setCurrencyRoute(currency)
 }
 
-const setCurrencyRoute = (currency: string) => {
+const setCurrencyRoute = async (currency: string) => {
   if(route.name === 'convert') {
-    router.replace({
+    await router.replace({
       path: '/convert',
       query: {
         from: currency,
