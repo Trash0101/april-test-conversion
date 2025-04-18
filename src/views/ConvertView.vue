@@ -183,6 +183,7 @@ const switchCurrencies = (): void => {
   fromCurrency.value = toCurrency.value;
   toCurrency.value = tempCurrency;
   fromAmount.value = toAmount.value;
+  convertFromSource();
 };
 
 const addToHistory = (): void => {
@@ -246,10 +247,6 @@ const init = () => {
 }
 
 onMounted(init);
-
-watch([fromCurrency, toCurrency], () => {
-  recalculateTarget();
-});
 
 watch(() => props.baseCurrency, () => {
   init();

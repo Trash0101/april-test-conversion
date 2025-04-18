@@ -186,10 +186,6 @@ $breakpoint-tablet: 1024px;
     @media (min-width: $breakpoint-mobile) {
       grid-template-columns: repeat(2, 1fr);
     }
-
-    @media (min-width: $breakpoint-tablet) {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 
   &__empty {

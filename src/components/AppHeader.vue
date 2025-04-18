@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__container">
       <div class="header__content">
-        <div class="header__logo-wrapper">
+        <div class="header__logo-wrapper" @click="onLogoClick">
           <img alt="Logo" class="header__logo" src="@/assets/logo.svg" width="32" height="32" />
           <span class="header__title">CurrencyExchange</span>
         </div>
@@ -75,6 +75,10 @@ const onBaseCurrencyChange = () => {
   }
 }
 
+const onLogoClick = () => {
+  router.push('/');
+}
+
 onMounted(() => {
   const savedCurrency = localStorage.getItem('baseCurrency')
   if (savedCurrency) {
@@ -129,6 +133,7 @@ $breakpoint-mobile: 768px;
   }
 
   &__logo-wrapper {
+    cursor: pointer;
     display: flex;
     align-items: center;
   }
