@@ -14,16 +14,17 @@
 import { ref, onMounted } from 'vue'
 import AppFooter from "@/components/AppFooter.vue";
 import AppHeader from "@/components/AppHeader.vue";
-import type CurrencyInfo from "@/types/CurrencyInfo.ts";
+import type CurrencyRate from "@/types/CurrencyRate.ts";
 import {CURRENCIES_EXC_RATES} from "@/consts/CURRENCIES.ts";
+import type CurrencyInfo from "@/types/CurrencyInfo.ts";
 
-const availableCurrencies = ref([
+const availableCurrencies = ref<Array<CurrencyInfo>>([
   { code: 'RUB', name: 'Российский рубль' },
   { code: 'USD', name: 'Доллар США' },
   { code: 'EUR', name: 'Евро' },
 ])
 
-const exchangeRates = ref<CurrencyInfo>(CURRENCIES_EXC_RATES)
+const exchangeRates = ref<CurrencyRate>(CURRENCIES_EXC_RATES)
 
 const baseCurrency = ref('RUB')
 

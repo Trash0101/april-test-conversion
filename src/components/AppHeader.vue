@@ -24,7 +24,7 @@
             </ul>
             <div class="currency-selector">
               <span class="currency-selector__label">Основная валюта:</span>
-              <select class="currency-selector__dropdown" :value="baseCurrency" @change="saveBaseCurrency($event.target.value)">
+              <select class="currency-selector__dropdown" :value="baseCurrency" @change="saveBaseCurrency">
                 <option v-for="currency in availableCurrencies" :key="currency.code" :value="currency.code">
                   {{ currency.code }} - {{ currency.name }}
                 </option>
@@ -43,7 +43,7 @@ import {onMounted, ref, watch} from "vue";
 import type CurrencyInfo from "@/types/CurrencyInfo.ts";
 
 defineProps<{
-  availableCurrencies: CurrencyInfo,
+  availableCurrencies: Array<CurrencyInfo>,
 }>();
 
 const baseCurrency = defineModel<string>('currency');
@@ -57,7 +57,9 @@ const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-const saveBaseCurrency = (currency: string) => {
+const saveBaseCurrency = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  const currency = target.value;
   localStorage.setItem('baseCurrency', currency)
   baseCurrency.value = currency
   onBaseCurrencyChange()

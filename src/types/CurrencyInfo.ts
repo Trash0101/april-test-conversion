@@ -1,3 +1,4 @@
 export default interface CurrencyInfo {
-  [key: string]: CurrencyInfo;
+    code: string;
+    name: string;
 }

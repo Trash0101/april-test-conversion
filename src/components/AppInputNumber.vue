@@ -3,7 +3,7 @@
     <label v-if="label" class="currency-input__label" :for="uid">{{ label }}</label>
     <div class="currency-input__wrapper">
       <input
-        id="uid"
+        :id="uid"
         type="tel"
         :value="formattedValue"
         @input="onInput"
@@ -15,14 +15,16 @@
         placeholder="Enter numbers only"
       />
     </div>
-    <div v-if="errorMessage" class="currency-input__error">{{ errorMessage }}</div>
+<!--    <div v-if="errorMessage" class="currency-input__error">{{ errorMessage }}</div>-->
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { getCurrentInstance, ref, watch } from 'vue'
 
-const modelValue = defineModel<string | undefined>()
+const modelValue = defineModel<string | number | null>();
+
+const uid = ref(`${getCurrentInstance()?.uid}`);
 
 defineProps<{
   label: string;
@@ -116,10 +118,10 @@ $error-color: #cf6679;
     }
   }
 
-  &__error {
-    color: $error-color;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-  }
+  //&__error {
+  //  color: $error-color;
+  //  font-size: 0.75rem;
+  //  margin-top: 0.25rem;
+  //}
 }
 </style>

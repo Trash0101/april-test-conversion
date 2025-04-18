@@ -77,13 +77,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed,  } from 'vue'
-import type CurrencyInfo from "@/types/CurrencyInfo.ts";
+import { ref, computed } from 'vue'
 import {CURRENCIES_TITLES} from "@/consts/CURRENCIES.ts";
+import type CurrencyRate from "@/types/CurrencyRate.ts";
 
 const props = defineProps<{
   baseCurrency: string;
-  rates: CurrencyInfo
+  rates: CurrencyRate;
 }>()
 
 const searchQuery = ref('')

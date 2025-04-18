@@ -84,7 +84,7 @@
       <div class="conversion-history__content" v-if="conversionHistory.length > 0">
         <div class="conversion-history__item" v-for="(item, index) in conversionHistory" :key="index">
           <div class="conversion-history__operation">
-            {{ formatAmount(item.fromAmount) }} {{ item.fromCurrency }} → {{ formatAmount(item.toAmount) }} {{ item.toCurrency }}
+            {{ formatAmount(item.fromAmount as number) }} {{ item.fromCurrency }} → {{ formatAmount(item.toAmount as number) }} {{ item.toCurrency }}
           </div>
           <div class="conversion-history__date">{{ item.date }}</div>
         </div>
@@ -100,12 +100,13 @@
 import {ref, computed, watch, onMounted, getCurrentInstance} from 'vue';
 import { useRoute } from 'vue-router';
 import AppInputNumber from "@/components/AppInputNumber.vue";
-import type CurrencyInfo from "@/types/CurrencyInfo.ts";
+import type CurrencyRate from "@/types/CurrencyRate.ts";
 import {CURRENCIES_TITLES} from "@/consts/CURRENCIES.ts";
+import type HistoryItem from "@/types/HistoryItem.ts";
 
 const props = defineProps<{
   baseCurrency: string;
-  rates: CurrencyInfo;
+  rates: CurrencyRate;
 }>();
 
 const route = useRoute();
@@ -114,7 +115,7 @@ const fromCurrency = ref('RUB');
 const toCurrency = ref('USD');
 const fromAmount = ref<number | string | null>(1000);
 const toAmount = ref<number | string | null>(0);
-const conversionHistory = ref([]);
+const conversionHistory = ref<Array<HistoryItem>>([]);
 
 const currencies = ref(CURRENCIES_TITLES);
 
@@ -154,7 +155,7 @@ const convertFromSource = (): void => {
   }
 
   const rate = getRate(fromCurrency.value, toCurrency.value);
-  toAmount.value = parseFloat((fromAmount.value * rate).toFixed(2));
+  toAmount.value = parseFloat((fromAmount.value as number * rate).toFixed(2));
 };
 
 const convertFromTarget = (): void => {
@@ -163,7 +164,7 @@ const convertFromTarget = (): void => {
     return;
   }
   const rate = getRate(toCurrency.value, fromCurrency.value);
-  fromAmount.value = parseFloat((toAmount.value * rate).toFixed(2));
+  fromAmount.value = parseFloat((toAmount.value as number * rate).toFixed(2));
 };
 
 const recalculateTarget = (): void => {
@@ -189,7 +190,7 @@ const switchCurrencies = (): void => {
 const addToHistory = (): void => {
   if (!fromAmount.value || !toAmount.value) return;
 
-  const historyItem = {
+  const historyItem: HistoryItem = {
     fromAmount: fromAmount.value,
     fromCurrency: fromCurrency.value,
     toAmount: toAmount.value,
