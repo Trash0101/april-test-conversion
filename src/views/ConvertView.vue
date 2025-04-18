@@ -47,7 +47,7 @@
             <select
               class="converter__currency-select"
               v-model="toCurrency"
-              @change="recalculateSource"
+              @change="recalculateTarget"
             >
               <option
                 v-for="currency in currencies"
