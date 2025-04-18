@@ -29,7 +29,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'addHistory'): void
+  (e: 'finished'): void
 }>();
 
 const formattedValue = ref(modelValue.value || '')
@@ -50,7 +50,7 @@ const onInput = (event: Event) => {
 }
 
 const onFinish = () => {
-  emit('addHistory');
+  emit('finished');
 }
 
 

@@ -13,7 +13,7 @@
             <span class="nav__toggle-bar"></span>
             <span class="nav__toggle-bar"></span>
           </button>
-          <div class="nav__wrapper" :class="{ 'nav__wrapper--active': isMobileMenuOpen }">
+          <div class="nav__wrapper" :class="{ 'nav__wrapper--active': mobileMenuOpen }">
             <ul class="nav__list">
               <li class="nav__item">
                 <router-link class="nav__link" :class="{ 'nav__link--active': route.path === '/' }" to="/">Главная</router-link>
@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import {RouterLink, useRoute, useRouter} from "vue-router";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import type CurrencyInfo from "@/types/CurrencyInfo.ts";
 
 defineProps<{
@@ -80,6 +80,10 @@ onMounted(() => {
   if (savedCurrency) {
     baseCurrency.value = savedCurrency
   }
+})
+
+watch(() => route.name, () => {
+  mobileMenuOpen.value = false;
 })
 </script>
 

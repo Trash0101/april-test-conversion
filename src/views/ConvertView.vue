@@ -29,7 +29,7 @@
               v-model="fromAmount"
               label="Сумма"
               @input="convertFromSource"
-              @add-history="addToHistory"
+              @finished="addToHistory"
             />
           </div>
         </div>
@@ -63,7 +63,7 @@
               v-model="toAmount"
               label="Сумма"
               @input="convertFromTarget"
-              @add-history="addToHistory"
+              @finished="addToHistory"
             />
           </div>
         </div>
@@ -242,7 +242,6 @@ const init = () => {
   }
 
   convertFromSource();
-
   loadHistoryFromLocalStorage();
 }
 
@@ -251,6 +250,7 @@ onMounted(init);
 watch([fromCurrency, toCurrency], () => {
   recalculateTarget();
 });
+
 watch(() => props.baseCurrency, () => {
   init();
 })
